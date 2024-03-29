@@ -23,19 +23,37 @@
                     <button class="btn btn-dark" id="plus">+</button>
                 </div>
                 <!--리스트 출력-->
-                <ul id="lists" class="col-11 mt-3"></ul>
+                <ul id="lists" class="list-group col-11 mt-3"></ul>
             </div>
         </div>
     </div>
 
     <script>
         function addList(text) {
-            var list = document.getElementById('lists');
-            var item = document.createElement('li'); // 새로운 li 요소 생성
-            item.innerText = text;
-            item.classList.add('list-group-item');
+            var list = document.getElementById('lists')
+            var item = document.createElement('li')
+            item.classList.add('list-group-item')
+            
+            // 체크박스 생성
+            var checkbox=document.createElement('input')
+            checkbox.type='checkbox'
+            checkbox.classList.add('form-check-input', 'me-2')
+            checkbox.addEventListener('change', function(){
+                if(this.checked){ //완료 항목 스타일 추가
+                    item.classList.add('text-decoration-line-through', 'text-muted')
+                }else{ //완료 항목 스타일 제거
+                    item.classList.remove('text-decoration-line-through', 'text-muted')
+                }
+            })
 
-            list.appendChild(item);
+            // 텍스트 추가
+            var textNode=document.createTextNode(text)
+
+            // 아이템에 체크박스와 텍스트 추가
+            item.appendChild(checkbox)
+            item.appendChild(textNode)
+
+            list.appendChild(item)
         }
 
         function printList() {
